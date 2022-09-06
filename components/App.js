@@ -1,7 +1,6 @@
 export default class App extends HTMLElement {
     constructor() {
       super();
-  
       this.characters = [];
   
       /**
@@ -45,8 +44,18 @@ export default class App extends HTMLElement {
     get table() {
       return this.querySelector('crud-table');
     }
-  
+
+    readfromStorage(){
+      Object.keys(localStorage).forEach(key => {
+          this.characters.push(JSON.parse(localStorage.getItem(Key)));
+      });
+    }
+
     addCharacter(newCharacter) {
+      let id = Math.floor(Math.random() * 100);
+
+      localStorage.setItem(id,JSON.stringify(newCharacter));
+
       this.characters = [
         ...this.characters,
         {
@@ -62,6 +71,8 @@ export default class App extends HTMLElement {
       const updateEvent = new CustomEvent('characters-updated', {
         detail: characters
       });
+      localStorage.setItem(id,JSON.stringify(characters));
+
       this.table.dispatchEvent(updateEvent);
     }
   
@@ -98,19 +109,11 @@ export default class App extends HTMLElement {
         char.id === updatedCharacter.id ? updatedCharacter : char
       );
     }
-  
+
     fetchInitialCharachters() {
-      const url = 'https://jsonplaceholder.typicode.com/users';
-      fetch(url)
-        .then(result => result.json())
-        .then(result => {
-          this.characters = result.map(char => ({
-            id: char.id.toString(),
-            name: char.name,
-            job: char.company.bs
-          }));
-          this.updateTable(this.characters);
-        });
+      Object.keys(localStorage).forEach(key => {
+        this.characters.push(JSON.parse(localStorage.getItem(key)));
+    });
     }
   
     connectedCallback() {

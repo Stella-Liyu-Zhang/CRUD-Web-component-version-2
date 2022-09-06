@@ -32,6 +32,7 @@ export default class Table extends HTMLElement {
     const deleteEvent = new CustomEvent('character-deleted', {
       detail: id
     });
+    localStorage.removeItem( e.key);
     this.dispatchEvent(deleteEvent);
   }
 

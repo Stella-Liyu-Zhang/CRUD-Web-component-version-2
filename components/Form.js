@@ -32,12 +32,16 @@ export default class Form extends HTMLElement {
         job: job.value,
         comment: comment.value
       }
+      
     });
+
     this.dispatchEvent(submitEvent);
+
     id.value = '';
     name.value = '';
     job.value = '';
     comment.value = '';
+
   }
 
   onEdit(event) {
