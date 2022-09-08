@@ -22,14 +22,14 @@ export default class Form extends HTMLElement {
     const id = this.querySelector('#id');
     const name = this.querySelector('#name');
     const comment = this.querySelector('#comment');
-    const job = this.querySelector('#job');
-    if (!name.value || !job.value || !comment.value) return;
+    const movie = this.querySelector('#movie');
+    if (!name.value || !movie.value || !comment.value) return;
 
     const submitEvent = new CustomEvent('form-submitted', {
       detail: {
         id: id.value,
         name: name.value,
-        job: job.value,
+        movie: movie.value,
         comment: comment.value
       }
       
@@ -39,7 +39,7 @@ export default class Form extends HTMLElement {
 
     id.value = '';
     name.value = '';
-    job.value = '';
+    movie.value = '';
     comment.value = '';
 
   }
@@ -48,12 +48,12 @@ export default class Form extends HTMLElement {
     this.form.innerHTML = this.formTemplate(
       event.detail.id,
       event.detail.name,
-      event.detail.job,
+      event.detail.movie,
       event.detail.comment
     );
   }
 
-  formTemplate(id = '', name = '', job = '', comment = '') {
+  formTemplate(id = '', name = '', movie = '', comment = '') {
     return `
       <input
         type="text"
@@ -70,12 +70,12 @@ export default class Form extends HTMLElement {
         value="${name}"
       />
 
-      <label htmlFor="job">Director</label>
+      <label htmlFor="movie">Director</label>
       <input
         type="text"
-        name="job"
-        id="job"
-        value="${job}"
+        name="movie"
+        id="movie"
+        value="${movie}"
       />
 
       <label htmlFor="comment">Comments</label>
@@ -89,5 +89,3 @@ export default class Form extends HTMLElement {
     `;
   }
 }
-
-customElements.define('crud-form', Form);

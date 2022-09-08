@@ -7,6 +7,7 @@ export default class Table extends HTMLElement {
 
     this.onDelete = this.onDelete.bind(this);
     this.onEdit = this.onEdit.bind(this);
+
   }
 
   get table() {
@@ -32,7 +33,7 @@ export default class Table extends HTMLElement {
     const deleteEvent = new CustomEvent('character-deleted', {
       detail: id
     });
-    localStorage.removeItem( e.key);
+    localStorage.removeItem(e.key);
     this.dispatchEvent(deleteEvent);
   }
 
@@ -65,7 +66,7 @@ export default class Table extends HTMLElement {
           return `
             <tr>
               <td>${character.name}</td>
-              <td>${character.job}</td>
+              <td>${character.movie}</td>
               <td>${character.comment}</td>
               <td>
                 <button data-id="${character.id}" class="delete-btn" >Delete</button>
@@ -78,10 +79,21 @@ export default class Table extends HTMLElement {
       </tbody>
     `;
   }
+  
+  // fetchinitialData(){
+  //   var i ;
+  //   for (i = 0; i < localStorage.length; i++)   {
+  //     this.updateTable(localStorage.key(i));
+   
 
-  connectedCallback() {
+  //     this.updateTable(localStorage.getItem(localStorage.key(i)));
+  //     console.log(localStorage.key(i) + "=[" + localStorage.getItem(localStorage.key(i)) + "]");
+  //   }
+  // }
+
+  connectedCallback() {  
+    
+  //  this.fetchinitialData();
     this.addEventListener('characters-updated', this.handleUpdateEvent);
   }
 }
-
-customElements.define('crud-table', Table);
